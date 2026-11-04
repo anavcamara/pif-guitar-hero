@@ -6,7 +6,7 @@ Mapa *carregar_mapa(const char *nome_arquivo)
     return 0;
 }
 
-int proxima_linha(Mapa *mapa, int linha[MAPA_MAX_COLUNAS])
+int proxima_linha(Mapa *mapa, int linha[MAPA_COLUNAS])
 {
     (void)mapa;
     (void)linha;

@@ -70,7 +70,7 @@ int main()
         if (timerTimeOver() == 1)
         {
             int newX = x + incX;
-            if (newX >= (MAXX -strlen("Hello World") -1) || newX <= MINX+1) incX = -incX;
+            if (newX >= (MAXX - (int)strlen("Hello World") - 1) || newX <= MINX + 1) incX = -incX;
             int newY = y + incY;
             if (newY >= MAXY-1 || newY <= MINY+1) incY = -incY;
 
