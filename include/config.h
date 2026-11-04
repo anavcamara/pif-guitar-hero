@@ -1,6 +1,3 @@
-#ifndef CONFIG_H
-#define CONFIG_H
-
 #define MAPA_MAX_COLUNAS 5
 #define MAPA_COLUNAS_FACIL 3
 #define MAPA_COLUNAS_MEDIO 4
@@ -24,5 +21,3 @@ typedef enum {
     BOM,
     ERRO
 } TipoAcerto;
-
-#endif
