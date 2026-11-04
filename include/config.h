@@ -1,0 +1,28 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define MAPA_MAX_COLUNAS 5
+#define MAPA_COLUNAS_FACIL 3
+#define MAPA_COLUNAS_MEDIO 4
+#define MAPA_COLUNAS_DIFICIL 5
+
+#define PONTUACAO_PERFEITO 100
+#define PONTUACAO_BOM 50
+
+#define PONTUACAO_COMBO_NIVEL 10
+#define PONTUACAO_MULTIPLICADOR_MAXIMO 4
+
+#define PONTUACAO_VIDAS_INICIAIS 5
+#define RANKING_QUANTIDADE 5
+#define RANKING_TAMANHO_NOME 30
+
+#define DADOS_PASTA "dados/"
+#define RANKING_ARQUIVO "ranking.txt"
+
+typedef enum {
+    PERFEITO,
+    BOM,
+    ERRO
+} TipoAcerto;
+
+#endif
