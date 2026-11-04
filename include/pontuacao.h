@@ -16,7 +16,7 @@ typedef struct {
 } RegistroRanking;
 
 void iniciar_placar(Placar *placar);
-void registrar_resultado(Placar *placar, TipoAcerto resultado);
+void registrar_acerto(Placar *placar, TipoAcerto resultado);
 int calcular_multiplicador(int combo);
 int jogo_acabou(const Placar *placar);
 

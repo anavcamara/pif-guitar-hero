@@ -2,25 +2,61 @@
 
 void iniciar_placar(Placar *placar)
 {
-    (void)placar;
+    placar->pontos = 0;
+    placar->combo = 0;
+    placar->maior_combo = 0;
+    placar->vidas = PONTUACAO_VIDAS_INICIAIS;
+    placar->perfeitos = 0;
+    placar->bons = 0;
+    placar->erros = 0;
 }
 
-void registrar_resultado(Placar *placar, TipoAcerto resultado)
+void registrar_acerto(Placar *placar, TipoAcerto resultado)
 {
-    (void)placar;
-    (void)resultado;
+    int pontos_base;
+
+    if (resultado == ERRO) {
+        placar->erros++;
+        placar->combo = 0;
+        if (placar->vidas > 0) {
+            placar->vidas--;
+        }
+        return;
+    }
+
+    if (resultado == PERFEITO) {
+        placar->perfeitos++;
+        pontos_base = PONTUACAO_PERFEITO;
+    } else if (resultado == BOM) {
+        placar->bons++;
+        pontos_base = PONTUACAO_BOM;
+    } else {
+        return;
+    }
+
+    placar->combo++;
+    if (placar->combo > placar->maior_combo) {
+        placar->maior_combo = placar->combo;
+    }
+
+    placar->pontos += pontos_base * calcular_multiplicador(placar->combo);
 }
 
 int calcular_multiplicador(int combo)
 {
-    (void)combo;
-    return 1;
+    int multiplicador;
+
+    multiplicador = combo / PONTUACAO_COMBO_NIVEL + 1;
+    if (multiplicador > PONTUACAO_MULTIPLICADOR_MAXIMO) {
+        multiplicador = PONTUACAO_MULTIPLICADOR_MAXIMO;
+    }
+
+    return multiplicador;
 }
 
 int jogo_acabou(const Placar *placar)
 {
-    (void)placar;
-    return 0;
+    return placar->vidas <= 0;
 }
 
 int carregar_ranking(const char *nome_arquivo,
