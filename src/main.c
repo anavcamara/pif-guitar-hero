@@ -55,8 +55,11 @@ int main()
 
     printHello(x, y);
     screenSetColor(BLACK, GREEN);
-    screenGotoxy(20, 10);
-    printf("     ");
+    for (int linha = 3; linha <= 20; linha++) {
+        screenGotoxy(20, linha);
+        printf("     ");
+
+    }
     screenSetColor(WHITE, BLACK);
     screenUpdate();
 
