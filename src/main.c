@@ -5,83 +5,74 @@
  * Based on "From C to C++ course - 2002"
 */
 
-#include <string.h>
-
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
 
-int x = 34, y = 12;
-int incX = 1, incY = 1;
-
-void printHello(int nextX, int nextY)
-{
-    screenSetColor(CYAN, DARKGRAY);
-    screenGotoxy(x, y);
-    printf("           ");
-    x = nextX;
-    y = nextY;
-    screenGotoxy(x, y);
-    printf("Hello World");
-}
-
-void printKey(int ch)
-{
-    screenSetColor(YELLOW, DARKGRAY);
-    screenGotoxy(35, 22);
-    printf("Key code :");
-
-    screenGotoxy(34, 23);
-    printf("            ");
-    
-    if (ch == 27) screenGotoxy(36, 23);
-    else screenGotoxy(39, 23);
-
-    printf("%d ", ch);
-    while (keyhit())
-    {
-        printf("%d ", readch());
-    }
-}
-
 int main() 
 {
     static int ch = 0;
-    static long timer = 0;
 
     screenInit(1);
+    screenHideCursor();
     keyboardInit();
     timerInit(50);
 
-    printHello(x, y);
+    screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
+
+    for (int i = 0; i < 4; i++) {
+        screenSetColor(BLACK, cores[i]);
+        for (int linha = 19; linha <= 20; linha++) {
+            screenGotoxy(20 + i * 12, linha);
+            printf("     ");
+        }
+    }
+
+    for (int i = 0; i < 4; i++) {
+        screenSetColor(BLACK, cores[i]);
+        for (int linha = 3; linha <= 17; linha++) {
+            screenGotoxy(20 + i * 12, linha);
+            printf(" ");
+           screenGotoxy(20 + i * 12 + 4, linha);
+            printf(" ");
+        }
+    }
+
+    screenSetColor(BLACK, LIGHTGRAY);
+    for (int coluna = 20; coluna <= 60; coluna++) {
+        screenGotoxy(coluna, 18);
+        printf(" ");
+    }
+
+    char teclas[4] = {'D', 'F', 'J', 'K'};
+
+    for (int i = 0; i < 4; i++) {
+        screenSetColor(BLACK, cores[i]);
+        screenGotoxy(20 + i * 12, 20);
+        printf("  %c  ", teclas[i]);
+    }
+    
+    screenSetColor(WHITE, BLACK);
     screenUpdate();
 
-    while (ch != 10 && timer <= 100) //enter or 5s
+    while (ch != 10) //enter or 5s
     {
         // Handle user input
         if (keyhit()) 
         {
             ch = readch();
-            printKey(ch);
             screenUpdate();
         }
 
         // Update game state (move elements, verify collision, etc)
         if (timerTimeOver() == 1)
         {
-            int newX = x + incX;
-            if (newX >= (MAXX - (int)strlen("Hello World") - 1) || newX <= MINX + 1) incX = -incX;
-            int newY = y + incY;
-            if (newY >= MAXY-1 || newY <= MINY+1) incY = -incY;
-
-            printHello(newX, newY);
-
             screenUpdate();
-            timer++;
         }
     }
 
     keyboardDestroy();
+    screenShowCursor();
     screenDestroy();
     timerDestroy();
 
