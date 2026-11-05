@@ -23,10 +23,16 @@ int main()
     for (int i = 0; i < 4; i++) {
         screenSetColor(BLACK, cores[i]);
         for (int linha = 3; linha <= 20; linha++) {
-        screenGotoxy(20 + i * 12, linha);
-        printf("     ");
-
+            screenGotoxy(20 + i * 12, linha);
+            printf("     ");
         }
+    }
+
+    screenSetColor(BLACK, LIGHTGRAY
+    );
+    for (int coluna = 20; coluna <= 60; coluna++) {
+        screenGotoxy(coluna, 18);
+        printf(" ");
     }
     
     screenSetColor(WHITE, BLACK);
