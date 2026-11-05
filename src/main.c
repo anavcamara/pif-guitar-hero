@@ -18,12 +18,17 @@ int main()
     keyboardInit();
     timerInit(50);
 
-    screenSetColor(BLACK, GREEN);
-    for (int linha = 3; linha <= 20; linha++) {
-        screenGotoxy(20, linha);
+    screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
+
+    for (int i = 0; i < 4; i++) {
+        screenSetColor(BLACK, cores[i]);
+        for (int linha = 3; linha <= 20; linha++) {
+        screenGotoxy(20 + i * 12, linha);
         printf("     ");
 
+        }
     }
+    
     screenSetColor(WHITE, BLACK);
     screenUpdate();
 
