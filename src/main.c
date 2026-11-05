@@ -28,11 +28,18 @@ int main()
         }
     }
 
-    screenSetColor(BLACK, LIGHTGRAY
-    );
+    screenSetColor(BLACK, LIGHTGRAY);
     for (int coluna = 20; coluna <= 60; coluna++) {
         screenGotoxy(coluna, 18);
         printf(" ");
+    }
+
+    char teclas[4] = {'D', 'F', 'J', 'K'};
+
+    for (int i = 0; i < 4; i++) {
+        screenSetColor(BLACK, cores[i]);
+        screenGotoxy(20 + i * 12, 20);
+        printf("  %c  ", teclas[i]);
     }
     
     screenSetColor(WHITE, BLACK);
