@@ -54,6 +54,10 @@ int main()
     timerInit(50);
 
     printHello(x, y);
+    screenSetColor(BLACK, GREEN);
+    screenGotoxy(20, 10);
+    printf("     ");
+    screenSetColor(WHITE, BLACK);
     screenUpdate();
 
     while (ch != 10 && timer <= 100) //enter or 5s
