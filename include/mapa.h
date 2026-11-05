@@ -2,7 +2,7 @@
 
 typedef struct {
     char nome[ RANKING_TAMANHO_NOME + 1];
-    char arquivo_audio[ RANKING_TAMANHO_NOME + 1];
+    char musica_audio[ RANKING_TAMANHO_NOME + 1];
     int bpm;
     int linhas_por_batida;
     int offset_ms;
@@ -11,7 +11,7 @@ typedef struct {
     int cursor;
 } Mapa;
 
-Mapa *carregar_mapa(const char *nome_arquivo);
+Mapa *carregar_mapa(const char *nome_musica);
 int proxima_linha(Mapa *mapa, int linha[MAPA_COLUNAS]);
 int mapa_acabou(const Mapa *mapa);
 int ms_por_linha(const Mapa *mapa);

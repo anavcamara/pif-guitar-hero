@@ -11,7 +11,7 @@
 #define RANKING_TAMANHO_NOME 30
 
 #define DADOS_PASTA "dados/"
-#define RANKING_ARQUIVO "ranking.txt"
+#define RANKING_ARQUIVO "dados/ranking.txt"
 
 typedef enum {
     PERFEITO,

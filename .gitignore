@@ -10,6 +10,7 @@
 # Linker output
 *.ilk
 *.map
+!dados/musicas/*.map
 *.exp
 
 # Precompiled Headers
