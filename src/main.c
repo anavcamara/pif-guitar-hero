@@ -9,6 +9,10 @@
 #include "keyboard.h"
 #include "timer.h"
 
+#define INICIO_X 20
+#define LARGURA_COLUNA 12
+#define LINHA_ACERTO 18
+
 int main() 
 {
     static int ch = 0;
@@ -23,7 +27,7 @@ int main()
     for (int i = 0; i < 4; i++) {
         screenSetColor(BLACK, cores[i]);
         for (int linha = 19; linha <= 20; linha++) {
-            screenGotoxy(20 + i * 12, linha);
+            screenGotoxy(INICIO_X + i * LARGURA_COLUNA, linha);
             printf("     ");
         }
     }
@@ -31,16 +35,16 @@ int main()
     for (int i = 0; i < 4; i++) {
         screenSetColor(BLACK, cores[i]);
         for (int linha = 3; linha <= 17; linha++) {
-            screenGotoxy(20 + i * 12, linha);
+            screenGotoxy(INICIO_X + i * LARGURA_COLUNA, linha);
             printf(" ");
-           screenGotoxy(20 + i * 12 + 4, linha);
+           screenGotoxy(INICIO_X + i * LARGURA_COLUNA + 4, linha);
             printf(" ");
         }
     }
 
     screenSetColor(BLACK, LIGHTGRAY);
-    for (int coluna = 20; coluna <= 60; coluna++) {
-        screenGotoxy(coluna, 18);
+    for (int coluna = INICIO_X ; coluna <= INICIO_X + 3 * LARGURA_COLUNA + 4; coluna++) {
+        screenGotoxy(coluna, LINHA_ACERTO);
         printf(" ");
     }
 
@@ -48,7 +52,7 @@ int main()
 
     for (int i = 0; i < 4; i++) {
         screenSetColor(BLACK, cores[i]);
-        screenGotoxy(20 + i * 12, 20);
+        screenGotoxy(INICIO_X + i * LARGURA_COLUNA, 20);
         printf("  %c  ", teclas[i]);
     }
     
