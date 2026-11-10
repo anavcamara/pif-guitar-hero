@@ -2,14 +2,11 @@
 #include "keyboard.h"
 #include "timer.h"
 
-#define INICIO_X 20
-#define LARGURA_COLUNA 12
 #define LINHA_ACERTO 19
 #define PISTA_X 24
 #define LARGURA_PISTA 8
 
-int main() 
-{
+int main() {
     static int ch = 0;
 
     screenInit(1);
@@ -47,6 +44,8 @@ int main()
     screenSetColor(WHITE, BLACK);
     screenUpdate();
 
+    int notaY = 3;
+
     while (ch != 10) // sai com enter
     {
         // Handle user input
@@ -57,8 +56,19 @@ int main()
         }
 
         // Update game state (move elements, verify collision, etc)
-        if (timerTimeOver() == 1)
-        {
+        if (timerTimeOver() == 1) {
+            screenSetColor(BLACK, BLACK);
+            screenGotoxy(PISTA_X + 2, notaY);
+            printf("     ");
+
+            notaY++;
+            if (notaY >= LINHA_ACERTO) notaY = 3;
+
+            screenSetColor(BLACK, cores[0]);
+            screenGotoxy(PISTA_X + 2, notaY);
+            printf("     ");
+
+            screenSetColor(WHITE, BLACK);
             screenUpdate();
         }
     }
