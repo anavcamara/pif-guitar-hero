@@ -58,6 +58,12 @@ int main()
         screenGotoxy(coluna, LINHA_ACERTO);
         printf(" ");
     }
+
+    for (int i = 0; i < 4; i++) {
+        screenSetColor(BLACK, cores[i]);
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 3, 21);
+        printf(" %c ", teclas[i]);
+    }
     
     screenSetColor(WHITE, BLACK);
     screenUpdate();
