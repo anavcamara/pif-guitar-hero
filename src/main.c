@@ -19,32 +19,9 @@ int main()
 
     screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
 
-    for (int i = 0; i < 4; i++) {
-        screenSetColor(BLACK, cores[i]);
-        for (int linha = 19; linha <= 20; linha++) {
-            screenGotoxy(INICIO_X + i * LARGURA_COLUNA, linha);
-            printf("     ");
-        }
-    }
-
-    for (int i = 0; i < 4; i++) {
-        screenSetColor(BLACK, cores[i]);
-        for (int linha = 3; linha <= 17; linha++) {
-            screenGotoxy(INICIO_X + i * LARGURA_COLUNA, linha);
-            printf(" ");
-           screenGotoxy(INICIO_X + i * LARGURA_COLUNA + 4, linha);
-            printf(" ");
-        }
-    }
-
     char teclas[4] = {'D', 'F', 'J', 'K'};
 
-    for (int i = 0; i < 4; i++) {
-        screenSetColor(BLACK, cores[i]);
-        screenGotoxy(INICIO_X + i * LARGURA_COLUNA, 20);
-        printf("  %c  ", teclas[i]);
-    }
-
+    //divisorias
     screenSetColor(DARKGRAY, BLACK);
     for (int i = 0; i <= 4; i++) {
         for (int linha = 3; linha <= 22; linha++) {
@@ -53,12 +30,14 @@ int main()
         }
     }
 
+    //linhas de acerto
     screenSetColor(BLACK, LIGHTGRAY);
     for (int coluna = PISTA_X ; coluna <= PISTA_X + 4 * LARGURA_PISTA; coluna++) {
         screenGotoxy(coluna, LINHA_ACERTO);
         printf(" ");
     }
 
+    //pads
     for (int i = 0; i < 4; i++) {
         screenSetColor(BLACK, cores[i]);
         screenGotoxy(PISTA_X + i * LARGURA_PISTA + 3, 21);
