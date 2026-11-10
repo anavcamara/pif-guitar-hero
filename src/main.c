@@ -4,7 +4,7 @@
 
 #define INICIO_X 20
 #define LARGURA_COLUNA 12
-#define LINHA_ACERTO 18
+#define LINHA_ACERTO 19
 #define PISTA_X 24
 #define LARGURA_PISTA 8
 
@@ -37,12 +37,6 @@ int main()
         }
     }
 
-    screenSetColor(BLACK, LIGHTGRAY);
-    for (int coluna = INICIO_X ; coluna <= INICIO_X + 3 * LARGURA_COLUNA + 4; coluna++) {
-        screenGotoxy(coluna, LINHA_ACERTO);
-        printf(" ");
-    }
-
     char teclas[4] = {'D', 'F', 'J', 'K'};
 
     for (int i = 0; i < 4; i++) {
@@ -57,6 +51,12 @@ int main()
             screenGotoxy(PISTA_X + i * LARGURA_PISTA, linha);
             printf("|");
         }
+    }
+
+    screenSetColor(BLACK, LIGHTGRAY);
+    for (int coluna = PISTA_X ; coluna <= PISTA_X + 4 * LARGURA_PISTA; coluna++) {
+        screenGotoxy(coluna, LINHA_ACERTO);
+        printf(" ");
     }
     
     screenSetColor(WHITE, BLACK);
