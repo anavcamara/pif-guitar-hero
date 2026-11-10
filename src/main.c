@@ -1,10 +1,3 @@
-/**
- * main.h
- * Created on Aug, 23th 2023
- * Author: Tiago Barros
- * Based on "From C to C++ course - 2002"
-*/
-
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
@@ -12,6 +5,8 @@
 #define INICIO_X 20
 #define LARGURA_COLUNA 12
 #define LINHA_ACERTO 18
+#define PISTA_X 24
+#define LARGURA_PISTA 8
 
 int main() 
 {
@@ -55,11 +50,19 @@ int main()
         screenGotoxy(INICIO_X + i * LARGURA_COLUNA, 20);
         printf("  %c  ", teclas[i]);
     }
+
+    screenSetColor(DARKGRAY, BLACK);
+    for (int i = 0; i <= 4; i++) {
+        for (int linha = 3; linha <= 22; linha++) {
+            screenGotoxy(PISTA_X + i * LARGURA_PISTA, linha);
+            printf("|");
+        }
+    }
     
     screenSetColor(WHITE, BLACK);
     screenUpdate();
 
-    while (ch != 10) //enter or 5s
+    while (ch != 10) // sai com enter
     {
         // Handle user input
         if (keyhit()) 
