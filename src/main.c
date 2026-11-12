@@ -1,16 +1,12 @@
-/**
- * main.h
- * Created on Aug, 23th 2023
- * Author: Tiago Barros
- * Based on "From C to C++ course - 2002"
-*/
-
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
 
-int main() 
-{
+#define LINHA_ACERTO 19
+#define PISTA_X 24
+#define LARGURA_PISTA 8
+
+int main() {
     static int ch = 0;
 
     screenInit(1);
@@ -20,42 +16,37 @@ int main()
 
     screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
 
-    for (int i = 0; i < 4; i++) {
-        screenSetColor(BLACK, cores[i]);
-        for (int linha = 19; linha <= 20; linha++) {
-            screenGotoxy(20 + i * 12, linha);
-            printf("     ");
+    char teclas[4] = {'D', 'F', 'J', 'K'};
+
+    //divisorias
+    screenSetColor(DARKGRAY, BLACK);
+    for (int i = 0; i <= 4; i++) {
+        for (int linha = 3; linha <= 22; linha++) {
+            screenGotoxy(PISTA_X + i * LARGURA_PISTA, linha);
+            printf("|");
         }
     }
 
-    for (int i = 0; i < 4; i++) {
-        screenSetColor(BLACK, cores[i]);
-        for (int linha = 3; linha <= 17; linha++) {
-            screenGotoxy(20 + i * 12, linha);
-            printf(" ");
-           screenGotoxy(20 + i * 12 + 4, linha);
-            printf(" ");
-        }
-    }
-
+    //linhas de acerto
     screenSetColor(BLACK, LIGHTGRAY);
-    for (int coluna = 20; coluna <= 60; coluna++) {
-        screenGotoxy(coluna, 18);
+    for (int coluna = PISTA_X ; coluna <= PISTA_X + 4 * LARGURA_PISTA; coluna++) {
+        screenGotoxy(coluna, LINHA_ACERTO);
         printf(" ");
     }
 
-    char teclas[4] = {'D', 'F', 'J', 'K'};
-
+    //pads
     for (int i = 0; i < 4; i++) {
         screenSetColor(BLACK, cores[i]);
-        screenGotoxy(20 + i * 12, 20);
-        printf("  %c  ", teclas[i]);
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 3, 21);
+        printf(" %c ", teclas[i]);
     }
     
     screenSetColor(WHITE, BLACK);
     screenUpdate();
 
-    while (ch != 10) //enter or 5s
+    int notaY = 3;
+
+    while (ch != 10) // sai com enter
     {
         // Handle user input
         if (keyhit()) 
@@ -65,8 +56,19 @@ int main()
         }
 
         // Update game state (move elements, verify collision, etc)
-        if (timerTimeOver() == 1)
-        {
+        if (timerTimeOver() == 1) {
+            screenSetColor(BLACK, BLACK);
+            screenGotoxy(PISTA_X + 2, notaY);
+            printf("     ");
+
+            notaY++;
+            if (notaY >= LINHA_ACERTO) notaY = 3;
+
+            screenSetColor(BLACK, cores[0]);
+            screenGotoxy(PISTA_X + 2, notaY);
+            printf("     ");
+
+            screenSetColor(WHITE, BLACK);
             screenUpdate();
         }
     }
