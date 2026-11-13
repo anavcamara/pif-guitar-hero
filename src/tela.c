@@ -63,7 +63,7 @@ void desenharCenario() {
     screenGotoxy(PISTA_X, 2);
     printf("+-------+-------+-------+-------+");
 
-    screenGotoxy(PISTA_X, 22);
+    screenGotoxy(PISTA_X, 23);
     printf("+-------+-------+-------+-------+");
 
     //linhas de acerto
@@ -76,7 +76,7 @@ void desenharCenario() {
     //pads
     for (int i = 0; i < 4; i++) {
         screenSetColor(BLACK, cores[i]);
-        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 3, 21);
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 3, 22);
         printf(" %c ", teclas[i]);
     }
 
