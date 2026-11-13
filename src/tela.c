@@ -28,7 +28,21 @@ void desenharPainel() {
     printf("3 / 5"); //valor ficticio
 }
 
+void desenharFundo() {
+
+    screenSetColor(BLACK, BLACK);
+
+    for (int linha = 2; linha <= 23; linha++) {
+        for (int coluna = 2; coluna <= 78; coluna++) {
+            screenGotoxy(coluna, linha);
+            printf(" ");
+        }
+    }
+}
+
 void desenharCenario() {
+
+    desenharFundo();
 
     screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
 
