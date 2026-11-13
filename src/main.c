@@ -12,8 +12,6 @@ int main() {
     keyboardInit();
     timerInit(50);
 
-    screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
-
     screenSetColor(WHITE, BLACK);
     screenUpdate();
 
@@ -30,16 +28,12 @@ int main() {
 
         // Update game state (move elements, verify collision, etc)
         if (timerTimeOver() == 1) {
-            screenSetColor(BLACK, BLACK);
-            screenGotoxy(PISTA_X + 2, notaY);
-            printf("     ");
+            apagarNota(0, notaY);
 
             notaY++;
             if (notaY >= LINHA_ACERTO) notaY = 3;
 
-            screenSetColor(BLACK, cores[0]);
-            screenGotoxy(PISTA_X + 2, notaY);
-            printf("     ");
+            desenharNota(0, notaY);
 
             screenSetColor(WHITE, BLACK);
             screenUpdate();

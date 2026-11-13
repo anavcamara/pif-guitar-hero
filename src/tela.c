@@ -30,3 +30,16 @@ void desenharCenario() {
         printf(" %c ", teclas[i]);
     }
 }
+
+void desenharNota(int pista, int y) {
+    screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
+    screenSetColor(BLACK, cores[pista]);
+    screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 2, y);
+    printf("     ");
+}
+
+void apagarNota (int pista, int y) {
+    screenSetColor(BLACK, BLACK);
+    screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 2, y);
+    printf("     ");
+}

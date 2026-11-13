@@ -7,4 +7,7 @@
 
 void desenharCenario();
 
+void desenharNota(int pista, int y);
+void apagarNota(int pista, int y);
+
 #endif
