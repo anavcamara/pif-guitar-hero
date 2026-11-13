@@ -1,6 +1,33 @@
 #include "screen.h"
 #include "tela.h"
 
+void desenharPainel() {
+
+    screenSetColor(WHITE, BLACK);
+    screenGotoxy(3, 5);
+    printf("PONTOS");
+
+    screenSetColor(BROWN, BLACK);
+    screenGotoxy(3, 6);
+    printf("000000"); //valor ficticio
+
+    screenSetColor(WHITE, BLACK);
+    screenGotoxy(3, 10);
+    printf("COMBO");
+
+    screenSetColor(GREEN, BLACK);
+    screenGotoxy(3, 11);
+    printf("x00"); //valor ficticio
+
+    screenSetColor(WHITE, BLACK);
+    screenGotoxy(3, 15);
+    printf("VIDAS");
+
+    screenSetColor(RED, BLACK);
+    screenGotoxy(3, 16);
+    printf("3 / 5"); //valor ficticio
+}
+
 void desenharCenario() {
 
     screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
@@ -29,6 +56,8 @@ void desenharCenario() {
         screenGotoxy(PISTA_X + i * LARGURA_PISTA + 3, 21);
         printf(" %c ", teclas[i]);
     }
+
+    desenharPainel();
 }
 
 void desenharNota(int pista, int y) {
@@ -43,3 +72,4 @@ void apagarNota (int pista, int y) {
     screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 2, y);
     printf("     ");
 }
+
