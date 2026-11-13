@@ -70,7 +70,7 @@ void desenharCenario() {
     screenSetColor(BLACK, LIGHTGRAY);
     for (int coluna = PISTA_X ; coluna <= PISTA_X + 4 * LARGURA_PISTA; coluna++) {
         screenGotoxy(coluna, LINHA_ACERTO);
-        printf(" ");
+        printf("▀");
     }
 
     //pads
@@ -90,9 +90,15 @@ void desenharNota(int pista, int y) {
     printf("     ");
 }
 
-void apagarNota (int pista, int y) {
-    screenSetColor(BLACK, BLACK);
+void apagarNota(int pista, int y) {
     screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 2, y);
-    printf("     ");
+
+    if (y == LINHA_ACERTO) {
+        screenSetColor(BLACK, LIGHTGRAY);
+        printf("▀▀▀▀▀");
+    } else {
+        screenSetColor(BLACK, BLACK);
+        printf("     ");
+    }
 }
 
