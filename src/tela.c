@@ -43,6 +43,15 @@ void desenharCenario() {
         }
     }
 
+    // bordas superior e inferior das pistas
+    screenSetColor(DARKGRAY, BLACK);
+
+    screenGotoxy(PISTA_X, 2);
+    printf("+-------+-------+-------+-------+");
+
+    screenGotoxy(PISTA_X, 22);
+    printf("+-------+-------+-------+-------+");
+
     //linhas de acerto
     screenSetColor(BLACK, LIGHTGRAY);
     for (int coluna = PISTA_X ; coluna <= PISTA_X + 4 * LARGURA_PISTA; coluna++) {
