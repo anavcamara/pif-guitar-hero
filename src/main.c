@@ -2,41 +2,47 @@
 #include "keyboard.h"
 #include "timer.h"
 #include "tela.h"
+#include "menu.h"
 
 int main() {
     static int ch = 0;
 
     screenInit(1);
-    desenharCenario();
     screenHideCursor();
     keyboardInit();
     timerInit(50);
 
-    screenSetColor(WHITE, BLACK);
-    screenUpdate();
+    int opcao = telaInicial();
 
-    int notaY = 3;
-
-    while (ch != 10) // sai com enter
+    if (opcao == 0) // JOGAR
     {
-        // Handle user input
-        if (keyhit()) 
+        desenharCenario();
+        screenSetColor(WHITE, BLACK);
+        screenUpdate();
+
+        int notaY = 3;
+
+        while (ch != 10) // sai com enter
         {
-            ch = readch();
-            screenUpdate();
-        }
+            // Handle user input
+            if (keyhit())
+            {
+                ch = readch();
+                screenUpdate();
+            }
 
-        // Update game state (move elements, verify collision, etc)
-        if (timerTimeOver() == 1) {
-            apagarNota(0, notaY);
+            // Update game state (move elements, verify collision, etc)
+            if (timerTimeOver() == 1) {
+                apagarNota(0, notaY);
 
-            notaY++;
-            if (notaY > LINHA_ACERTO) notaY = 3;
+                notaY++;
+                if (notaY > LINHA_ACERTO) notaY = 3;
 
-            desenharNota(0, notaY);
+                desenharNota(0, notaY);
 
-            screenSetColor(WHITE, BLACK);
-            screenUpdate();
+                screenSetColor(WHITE, BLACK);
+                screenUpdate();
+            }
         }
     }
 
