@@ -289,3 +289,26 @@ void desenharMenu(int selecionada) {
     desenharPadsMenu();
     desenharDica();
 }
+
+void desenharTituloAjuda() {
+    char titulo[] = "COMO JOGAR";
+
+    resetCor();
+    for (int i = 0; i < 10; i++) {
+        setFg(COR_NOTA[i % 4]);
+        screenGotoxy(31 + i * 2, 3);
+        printf("%c", titulo[i]);
+    }
+    resetCor();
+}
+
+void desenharPasso(int linha, int numero, char texto[]) {
+    resetCor();
+    setFg(COR_NOTA[(numero - 1) % 4]);
+    screenGotoxy(10, linha);
+    printf("%d.", numero);
+
+    setFg(COR_TEXTO);
+    printf(" %s", texto);
+    resetCor();
+}
