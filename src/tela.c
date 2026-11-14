@@ -216,3 +216,32 @@ void desenharNotasMenu() {
     desenharBloco(70, 8, 3);
     desenharBloco(70, 18, 2);
 }
+
+void desenharOpcao(int linha, char texto[], int selecionada) {
+    int tam = strlen(texto);
+
+    // apaga a linha antes de escrever
+    resetCor();
+    screenGotoxy(30, linha);
+    printf("                     ");
+
+    if (selecionada) {
+        setBg(COR_TEXTO);
+        setFg(COR_PRETO);
+        screenGotoxy(40 - (tam + 4) / 2, linha);
+        printf("▶ %s ◀", texto);
+    } else {
+        setFg(COR_CINZA);
+        screenGotoxy(40 - tam / 2, linha);
+        printf("%s", texto);
+    }
+
+    resetCor();
+}
+
+void desenharOpcoes(int selecionada) {
+    desenharOpcao(11, "JOGAR", selecionada == 0);
+    desenharOpcao(13, "RANKING", selecionada == 1);
+    desenharOpcao(15, "COMO JOGAR", selecionada == 2);
+    desenharOpcao(17, "SAIR", selecionada == 3);
+}
