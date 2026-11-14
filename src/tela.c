@@ -201,3 +201,18 @@ void desenharTitulo() {
         printf("%c", linha2[i]);
     }
 }
+
+void desenharBloco(int x, int y, int cor) {
+    resetCor();
+    setBg(COR_NOTA[cor]);
+    screenGotoxy(x, y);
+    printf("      ");
+    resetCor();
+}
+
+void desenharNotasMenu() {
+    desenharBloco(5, 5, 0);
+    desenharBloco(5, 15, 1);
+    desenharBloco(70, 8, 3);
+    desenharBloco(70, 18, 2);
+}
