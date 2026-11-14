@@ -44,7 +44,7 @@ void desenharCenario() {
 
     desenharFundo();
 
-    screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
+    screenColor cores[4] = {GREEN, RED, BROWN, BLUE};
 
     char teclas[4] = {'D', 'F', 'J', 'K'};
 
@@ -92,21 +92,21 @@ void desenharCenario() {
 }
 
 void desenharNota(int pista, int y) {
-    screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
+    screenColor cores[4] = {GREEN, RED, BROWN, BLUE};
     screenSetColor(BLACK, cores[pista]);
-    screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 2, y);
-    printf("     ");
+    screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 3, y);
+    printf("       ");
 }
 
 void apagarNota(int pista, int y) {
-    screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 2, y);
+    screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 3, y);
 
     if (y == LINHA_ACERTO) {
         screenSetColor(BLACK, LIGHTGRAY);
-        printf("▀▀▀▀▀");
+        printf("▀▀▀▀▀▀▀");
     } else {
         screenSetColor(BLACK, BLACK);
-        printf("     ");
+        printf("       ");
     }
 }
 
