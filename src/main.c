@@ -31,7 +31,7 @@ int main() {
             apagarNota(0, notaY);
 
             notaY++;
-            if (notaY > 20) notaY = 3;
+            if (notaY > LINHA_ACERTO) notaY = 3;
 
             desenharNota(0, notaY);
 
