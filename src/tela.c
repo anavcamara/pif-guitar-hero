@@ -1,31 +1,50 @@
 #include "screen.h"
 #include "tela.h"
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct { 
+    int r, g, b; 
+} Rgb;
+
+static const Rgb COR_TEXTO  = {232, 224, 208};
+static const Rgb COR_PONTOS = {245, 201, 138};
+static const Rgb COR_COMBO  = {140, 198,  90};
+static const Rgb COR_VIDAS  = {240, 128, 128};
+
+static void setFg(Rgb c) { printf("\033[38;2;%d;%d;%dm", c.r, c.g, c.b); }
+static void setBg(Rgb c) { printf("\033[48;2;%d;%d;%dm", c.r, c.g, c.b); }
+static void resetCor()   { printf("\033[0;37;40m"); }
 
 void desenharPainel() {
 
-    screenSetColor(WHITE, BLACK);
+    resetCor();
+
+    setFg(COR_TEXTO);
     screenGotoxy(3, 3);
     printf("PONTOS");
 
-    screenSetColor(BROWN, BLACK);
+    setFg(COR_PONTOS);
     screenGotoxy(3, 4);
     printf("012450"); //valor ficticio
 
-    screenSetColor(WHITE, BLACK);
+    setFg(COR_TEXTO);
     screenGotoxy(3, 7);
     printf("COMBO");
 
-    screenSetColor(GREEN, BLACK);
+    setFg(COR_COMBO);
     screenGotoxy(3, 8);
     printf("x12"); //valor ficticio
 
-    screenSetColor(WHITE, BLACK);
+    setFg(COR_TEXTO);
     screenGotoxy(3, 11);
     printf("VIDAS");
 
-    screenSetColor(LIGHTRED, BLACK);
+    setFg(COR_VIDAS);
     screenGotoxy(3, 12);
     printf("3 / 5"); //valor ficticio
+
+    resetCor();
 }
 
 void desenharFundo() {
