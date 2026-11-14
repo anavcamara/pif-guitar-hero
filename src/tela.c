@@ -183,6 +183,8 @@ void apagarNota(int pista, int y) {
     }
 }
 
+// --- Menu inicial ---
+
 void desenharTitulo() {
     char linha1[] = "GUITAR";
     char linha2[] = "HERO";
@@ -274,4 +276,13 @@ void desenharDica() {
     screenGotoxy(18, 23);
     printf("use ↑ ↓ para navegar e ENTER para selecionar");
     resetCor();
+}
+
+void desenharMenu(int selecionada) {
+    desenharFundo();
+    desenharTitulo();
+    desenharNotasMenu();
+    desenharOpcoes(selecionada);
+    desenharPadsMenu();
+    desenharDica();
 }
