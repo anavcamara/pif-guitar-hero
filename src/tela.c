@@ -245,3 +245,33 @@ void desenharOpcoes(int selecionada) {
     desenharOpcao(15, "COMO JOGAR", selecionada == 2);
     desenharOpcao(17, "SAIR", selecionada == 3);
 }
+
+void desenharPadsMenu() {
+    char teclas[4] = {'D', 'F', 'J', 'K'};
+
+    // linha de acerto
+    resetCor();
+    setFg(COR_BRANCO);
+    screenGotoxy(20, 20);
+    for (int i = 0; i < 40; i++) printf("▀");
+
+    // pads
+    for (int i = 0; i < 4; i++) {
+        setBg(COR_NOTA[i]);
+        setFg(COR_PRETO);
+        screenGotoxy(23 + i * 10, 21);
+        printf("  %c   ", teclas[i]);
+        screenGotoxy(23 + i * 10, 22);
+        printf("      ");
+    }
+
+    resetCor();
+}
+
+void desenharDica() {
+    resetCor();
+    setFg(COR_CINZA);
+    screenGotoxy(18, 23);
+    printf("use ↑ ↓ para navegar e ENTER para selecionar");
+    resetCor();
+}
