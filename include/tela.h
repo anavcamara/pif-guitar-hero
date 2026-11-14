@@ -7,6 +7,7 @@
 
 void desenharMenu(int selecionada);
 void desenharOpcoes(int selecionada);
+void desenharComoJogar();
 
 void desenharCenario();
 

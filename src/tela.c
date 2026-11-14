@@ -312,3 +312,34 @@ void desenharPasso(int linha, int numero, char texto[]) {
     printf(" %s", texto);
     resetCor();
 }
+
+void desenharPadsAjuda() {
+    char teclas[4] = {'D', 'F', 'J', 'K'};
+
+    for (int i = 0; i < 4; i++) {
+        setBg(COR_NOTA[i]);
+        setFg(COR_PRETO);
+        screenGotoxy(23 + i * 10, 9);
+        printf("  %c   ", teclas[i]);
+        screenGotoxy(23 + i * 10, 10);
+        printf("      ");
+    }
+    resetCor();
+}
+
+void desenharComoJogar() {
+    desenharFundo();
+    desenharTituloAjuda();
+
+    desenharPasso(5, 1, "As notas descem pelas quatro pistas.");
+    desenharPasso(7, 2, "Aperte a tecla da pista quando a nota tocar a linha de acerto.");
+    desenharPadsAjuda();
+    desenharPasso(13, 3, "Cada acerto soma pontos e aumenta o seu combo.");
+    desenharPasso(15, 4, "Se deixar uma nota passar ou errar a tecla, você perde uma vida.");
+    desenharPasso(17, 5, "Quando as vidas acabam, o jogo termina.");
+
+    setFg(COR_CINZA);
+    screenGotoxy(28, 22);
+    printf("aperte ENTER para voltar");
+    resetCor();
+}
