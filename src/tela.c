@@ -21,7 +21,10 @@ static const Rgb COR_FUNDO[4] = {{ 26,  29,  20}, { 37,  22,  22}, { 38,  31,  2
 
 static void setFg(Rgb c) { printf("\033[38;2;%d;%d;%dm", c.r, c.g, c.b); }
 static void setBg(Rgb c) { printf("\033[48;2;%d;%d;%dm", c.r, c.g, c.b); }
-static void resetCor()   { printf("\033[0;37;40m"); }
+static void resetCor() {
+    printf("\033[0;37m");
+    setBg(COR_PRETO);
+}
 
 void desenharPainel() {
 
@@ -56,7 +59,7 @@ void desenharPainel() {
 
 void desenharFundo() {
 
-    screenSetColor(BLACK, BLACK);
+        resetCor();
 
     for (int linha = 2; linha <= 23; linha++) {
         for (int coluna = 2; coluna <= 78; coluna++) {
@@ -254,16 +257,16 @@ void desenharPadsMenu() {
     // linha de acerto
     resetCor();
     setFg(COR_BRANCO);
-    screenGotoxy(20, 20);
+    screenGotoxy(20, 19);
     for (int i = 0; i < 40; i++) printf("▀");
 
     // pads
     for (int i = 0; i < 4; i++) {
         setBg(COR_NOTA[i]);
         setFg(COR_PRETO);
-        screenGotoxy(23 + i * 10, 21);
+        screenGotoxy(23 + i * 10, 20);
         printf("  %c   ", teclas[i]);
-        screenGotoxy(23 + i * 10, 22);
+        screenGotoxy(23 + i * 10, 21);
         printf("      ");
     }
 
