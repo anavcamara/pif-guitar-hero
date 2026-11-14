@@ -153,6 +153,13 @@ void desenharCenario() {
     }
     resetCor();
 
+    //legenda
+    const char *legenda = "aperte a tecla quando a nota tocar a linha";
+    setFg(COR_CINZA);
+    screenGotoxy(PISTA_X + 2 * LARGURA_PISTA - (int)strlen(legenda) / 2, 23);
+    printf("%s", legenda);
+    resetCor();
+
     desenharPainel();
 }
 
