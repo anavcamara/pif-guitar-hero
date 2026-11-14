@@ -4,27 +4,27 @@
 void desenharPainel() {
 
     screenSetColor(WHITE, BLACK);
-    screenGotoxy(3, 5);
+    screenGotoxy(3, 3);
     printf("PONTOS");
 
     screenSetColor(BROWN, BLACK);
-    screenGotoxy(3, 6);
-    printf("000000"); //valor ficticio
+    screenGotoxy(3, 4);
+    printf("012450"); //valor ficticio
 
     screenSetColor(WHITE, BLACK);
-    screenGotoxy(3, 10);
+    screenGotoxy(3, 7);
     printf("COMBO");
 
     screenSetColor(GREEN, BLACK);
-    screenGotoxy(3, 11);
-    printf("x00"); //valor ficticio
+    screenGotoxy(3, 8);
+    printf("x12"); //valor ficticio
 
     screenSetColor(WHITE, BLACK);
-    screenGotoxy(3, 15);
+    screenGotoxy(3, 11);
     printf("VIDAS");
 
-    screenSetColor(RED, BLACK);
-    screenGotoxy(3, 16);
+    screenSetColor(LIGHTRED, BLACK);
+    screenGotoxy(3, 12);
     printf("3 / 5"); //valor ficticio
 }
 
