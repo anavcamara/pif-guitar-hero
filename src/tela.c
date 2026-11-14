@@ -11,6 +11,9 @@ static const Rgb COR_TEXTO  = {232, 224, 208};
 static const Rgb COR_PONTOS = {245, 201, 138};
 static const Rgb COR_COMBO  = {140, 198,  90};
 static const Rgb COR_VIDAS  = {240, 128, 128};
+static const Rgb COR_BORDA  = { 92,  92,  85};
+static const Rgb COR_BRANCO = {245, 245, 245};
+static const Rgb COR_CINZA  = {140, 140, 132};
 
 static const Rgb COR_NOTA[4]  = {{102, 153,  34}, {226,  74,  74}, {240, 160,  40}, { 51, 136, 221}};
 static const Rgb COR_FUNDO[4] = {{ 26,  29,  20}, { 37,  22,  22}, { 38,  31,  20}, { 22,  25,  34}};
@@ -62,6 +65,16 @@ void desenharFundo() {
     }
 }
 
+// trecho da linha de acerto: meio bloco branco sobre o fundo da pista
+static void desenharTrechoAcerto(int x, int largura, int pista) {
+    resetCor();
+    setBg(COR_FUNDO[pista]);
+    setFg(COR_BRANCO);
+    screenGotoxy(x, LINHA_ACERTO);
+    for (int i = 0; i < largura; i++) printf("▀");
+    resetCor();
+}
+
 void desenharCenario() {
 
     desenharFundo();
@@ -81,7 +94,9 @@ void desenharCenario() {
     char teclas[4] = {'D', 'F', 'J', 'K'};
 
     //divisorias
-    screenSetColor(DARKGRAY, BLACK);
+    resetCor();
+    setFg(COR_BORDA);
+
     for (int i = 0; i <= 4; i++) {
         for (int linha = 3; linha <= 21; linha++) {
             screenGotoxy(PISTA_X + i * LARGURA_PISTA, linha);
@@ -90,7 +105,8 @@ void desenharCenario() {
     }
 
     // bordas superior e inferior das pistas
-    screenSetColor(DARKGRAY, BLACK);
+    resetCor();
+    setFg(COR_BORDA);
 
     screenGotoxy(PISTA_X, 2);
     printf("┌");
@@ -106,12 +122,23 @@ void desenharCenario() {
         printf(i < 3 ? "┴" : "┘");
     }
 
-    //linhas de acerto
-    screenSetColor(BLACK, LIGHTGRAY);
-    for (int coluna = PISTA_X ; coluna <= PISTA_X + 4 * LARGURA_PISTA; coluna++) {
-        screenGotoxy(coluna, LINHA_ACERTO);
+    //linha de acerto
+    for (int i = 0; i < 4; i++) {
+        desenharTrechoAcerto(PISTA_X + i * LARGURA_PISTA + 1, LARGURA_PISTA - 1, i);
+    }
+
+    resetCor();
+    setFg(COR_BRANCO);
+    for (int i = 0; i <= 4; i++) {
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA, LINHA_ACERTO);
         printf("▀");
     }
+    resetCor();
+
+    setFg(COR_CINZA);
+    screenGotoxy(PISTA_X + 4 * LARGURA_PISTA + 2, LINHA_ACERTO);
+    printf("linha de acerto");
+    resetCor();
 
     //pads
     for (int i = 0; i < 4; i++) {
@@ -132,15 +159,13 @@ void desenharNota(int pista, int y) {
 }
 
 void apagarNota(int pista, int y) {
-    screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 3, y);
-
     if (y == LINHA_ACERTO) {
-        screenSetColor(BLACK, LIGHTGRAY);
-        printf("▀▀▀▀▀▀▀");
+        desenharTrechoAcerto(PISTA_X + pista * LARGURA_PISTA + 3, 7, pista);
     } else {
         resetCor();
         setBg(COR_FUNDO[pista]);
+        screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 3, y);
         printf("       ");
+        resetCor();
     }
-    resetCor();
 }
