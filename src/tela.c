@@ -14,6 +14,7 @@ static const Rgb COR_VIDAS  = {240, 128, 128};
 static const Rgb COR_BORDA  = { 92,  92,  85};
 static const Rgb COR_BRANCO = {245, 245, 245};
 static const Rgb COR_CINZA  = {140, 140, 132};
+static const Rgb COR_PRETO  = { 20,  18,  16};
 
 static const Rgb COR_NOTA[4]  = {{102, 153,  34}, {226,  74,  74}, {240, 160,  40}, { 51, 136, 221}};
 static const Rgb COR_FUNDO[4] = {{ 26,  29,  20}, { 37,  22,  22}, { 38,  31,  20}, { 22,  25,  34}};
@@ -89,8 +90,6 @@ void desenharCenario() {
         }
     }
 
-    screenColor cores[4] = {GREEN, RED, BROWN, BLUE};
-
     char teclas[4] = {'D', 'F', 'J', 'K'};
 
     //divisorias
@@ -142,10 +141,17 @@ void desenharCenario() {
 
     //pads
     for (int i = 0; i < 4; i++) {
-        screenSetColor(BLACK, cores[i]);
-        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 5, 21);
-        printf(" %c ", teclas[i]);
+        resetCor();
+        setBg(COR_NOTA[i]);
+        setFg(COR_PRETO);
+
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 4, 20);
+        printf("  %c  ", teclas[i]);
+
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 4, 21);
+        printf("     ");
     }
+    resetCor();
 
     desenharPainel();
 }
