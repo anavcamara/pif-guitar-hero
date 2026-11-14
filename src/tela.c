@@ -231,7 +231,7 @@ void desenharOpcao(int linha, char texto[], int selecionada) {
         setBg(COR_TEXTO);
         setFg(COR_PRETO);
         screenGotoxy(40 - (tam + 4) / 2, linha);
-        printf("▶ %s ◀", texto);
+        printf("> %s <", texto);
     } else {
         setFg(COR_CINZA);
         screenGotoxy(40 - tam / 2, linha);
