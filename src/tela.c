@@ -12,6 +12,9 @@ static const Rgb COR_PONTOS = {245, 201, 138};
 static const Rgb COR_COMBO  = {140, 198,  90};
 static const Rgb COR_VIDAS  = {240, 128, 128};
 
+static const Rgb COR_NOTA[4]  = {{102, 153,  34}, {226,  74,  74}, {240, 160,  40}, { 51, 136, 221}};
+static const Rgb COR_FUNDO[4] = {{ 26,  29,  20}, { 37,  22,  22}, { 38,  31,  20}, { 22,  25,  34}};
+
 static void setFg(Rgb c) { printf("\033[38;2;%d;%d;%dm", c.r, c.g, c.b); }
 static void setBg(Rgb c) { printf("\033[48;2;%d;%d;%dm", c.r, c.g, c.b); }
 static void resetCor()   { printf("\033[0;37;40m"); }
@@ -63,6 +66,16 @@ void desenharCenario() {
 
     desenharFundo();
 
+    // fundo colorido de cada pista
+    for (int i = 0; i < 4; i++) {
+        resetCor();
+        setBg(COR_FUNDO[i]);
+        for (int linha = 3; linha <= 21; linha++) {
+            screenGotoxy(PISTA_X + i * LARGURA_PISTA + 1, linha);
+            for (int j = 0; j < LARGURA_PISTA - 1; j++) printf(" ");
+        }
+    }
+
     screenColor cores[4] = {GREEN, RED, BROWN, BLUE};
 
     char teclas[4] = {'D', 'F', 'J', 'K'};
@@ -111,10 +124,11 @@ void desenharCenario() {
 }
 
 void desenharNota(int pista, int y) {
-    screenColor cores[4] = {GREEN, RED, BROWN, BLUE};
-    screenSetColor(BLACK, cores[pista]);
+    resetCor();
+    setBg(COR_NOTA[pista]);
     screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 3, y);
     printf("       ");
+    resetCor();
 }
 
 void apagarNota(int pista, int y) {
@@ -124,8 +138,9 @@ void apagarNota(int pista, int y) {
         screenSetColor(BLACK, LIGHTGRAY);
         printf("▀▀▀▀▀▀▀");
     } else {
-        screenSetColor(BLACK, BLACK);
+        resetCor();
+        setBg(COR_FUNDO[pista]);
         printf("       ");
     }
+    resetCor();
 }
-
