@@ -182,3 +182,22 @@ void apagarNota(int pista, int y) {
         resetCor();
     }
 }
+
+void desenharTitulo() {
+    char linha1[] = "GUITAR";
+    char linha2[] = "HERO";
+
+    resetCor();
+
+    for (int i = 0; i < 6; i++) {
+        setFg(COR_NOTA[i % 4]);
+        screenGotoxy(35 + i * 2, 4);
+        printf("%c", linha1[i]);
+    }
+
+    for (int i = 0; i < 4; i++) {
+        setFg(COR_NOTA[i]);
+        screenGotoxy(37 + i * 2, 6);
+        printf("%c", linha2[i]);
+    }
+}
