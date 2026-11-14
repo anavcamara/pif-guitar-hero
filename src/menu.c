@@ -3,6 +3,17 @@
 #include "tela.h"
 #include "menu.h"
 
+void mostrarComoJogar() {
+    int ch = 0;
+
+    desenharComoJogar();
+    screenUpdate();
+
+    while (ch != 10) {
+        if (keyhit()) ch = readch();
+    }
+}
+
 int telaInicial() {
     int selecionada = 0;
     int ch = 0;
@@ -10,7 +21,7 @@ int telaInicial() {
     desenharMenu(selecionada);
     screenUpdate();
 
-    while (ch != 10) // sai com enter
+    while (1)
     {
         if (keyhit())
         {
@@ -32,10 +43,16 @@ int telaInicial() {
             if (selecionada < 0) selecionada = 3;
             if (selecionada > 3) selecionada = 0;
 
-            desenharOpcoes(selecionada);
+            if (ch == 10) {
+                if (selecionada != 2) return selecionada;
+
+                mostrarComoJogar();
+                desenharMenu(selecionada);
+            } else {
+                desenharOpcoes(selecionada);
+            }
+
             screenUpdate();
         }
     }
-
-    return selecionada;
 }
