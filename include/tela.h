@@ -2,8 +2,8 @@
 #define TELA_H
 
 #define LINHA_ACERTO 19
-#define PISTA_X 24
-#define LARGURA_PISTA 8
+#define PISTA_X 13
+#define LARGURA_PISTA 12   // 1 divisoria + 11 colunas internas
 
 void desenharCenario();
 

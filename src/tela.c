@@ -51,9 +51,9 @@ void desenharCenario() {
     //divisorias
     screenSetColor(DARKGRAY, BLACK);
     for (int i = 0; i <= 4; i++) {
-        for (int linha = 3; linha <= 22; linha++) {
+        for (int linha = 3; linha <= 21; linha++) {
             screenGotoxy(PISTA_X + i * LARGURA_PISTA, linha);
-            printf("|");
+            printf("│");
         }
     }
 
@@ -61,10 +61,18 @@ void desenharCenario() {
     screenSetColor(DARKGRAY, BLACK);
 
     screenGotoxy(PISTA_X, 2);
-    printf("+-------+-------+-------+-------+");
+    printf("┌");
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < LARGURA_PISTA - 1; j++) printf("─");
+        printf(i < 3 ? "┬" : "┐");
+    }
 
-    screenGotoxy(PISTA_X, 23);
-    printf("+-------+-------+-------+-------+");
+    screenGotoxy(PISTA_X, 22);
+    printf("└");
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < LARGURA_PISTA - 1; j++) printf("─");
+        printf(i < 3 ? "┴" : "┘");
+    }
 
     //linhas de acerto
     screenSetColor(BLACK, LIGHTGRAY);
@@ -76,7 +84,7 @@ void desenharCenario() {
     //pads
     for (int i = 0; i < 4; i++) {
         screenSetColor(BLACK, cores[i]);
-        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 3, 22);
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 5, 21);
         printf(" %c ", teclas[i]);
     }
 
