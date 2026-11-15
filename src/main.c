@@ -1,12 +1,13 @@
+#include <stdlib.h>
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
-
-#define LINHA_ACERTO 19
-#define PISTA_X 24
-#define LARGURA_PISTA 8
+#include "tela.h"
+#include "menu.h"
+#include "notas.h"
 
 int main() {
+    srand(time(NULL));
     static int ch = 0;
 
     screenInit(1);
@@ -14,64 +15,90 @@ int main() {
     keyboardInit();
     timerInit(50);
 
-    screenColor cores[4] = {GREEN, RED, BROWN, CYAN};
+    int opcao = telaInicial();
 
-    char teclas[4] = {'D', 'F', 'J', 'K'};
+    Nota *lista = NULL;
 
-    //divisorias
-    screenSetColor(DARKGRAY, BLACK);
-    for (int i = 0; i <= 4; i++) {
-        for (int linha = 3; linha <= 22; linha++) {
-            screenGotoxy(PISTA_X + i * LARGURA_PISTA, linha);
-            printf("|");
-        }
-    }
-
-    //linhas de acerto
-    screenSetColor(BLACK, LIGHTGRAY);
-    for (int coluna = PISTA_X ; coluna <= PISTA_X + 4 * LARGURA_PISTA; coluna++) {
-        screenGotoxy(coluna, LINHA_ACERTO);
-        printf(" ");
-    }
-
-    //pads
-    for (int i = 0; i < 4; i++) {
-        screenSetColor(BLACK, cores[i]);
-        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 3, 21);
-        printf(" %c ", teclas[i]);
-    }
-    
-    screenSetColor(WHITE, BLACK);
-    screenUpdate();
-
-    int notaY = 3;
-
-    while (ch != 10) // sai com enter
+    if (opcao == 0) // JOGAR
     {
-        // Handle user input
-        if (keyhit()) 
+        desenharCenario();
+        screenSetColor(WHITE, BLACK);
+        screenUpdate();
+
+        int contador = 0;
+        int proximaColuna = 0;
+
+        while (ch != 10) // sai com enter
         {
-            ch = readch();
-            screenUpdate();
+            // Handle user input
+            if (keyhit())
+            {
+                ch = readch();
+                int colunaTecla = -1;
+
+                if(ch == 'd' || ch == 'D'){
+                    colunaTecla = 0;
+                }else if (ch == 'f' || ch == 'F'){
+                    colunaTecla = 1;
+                }else if (ch == 'j' || ch == 'J'){
+                    colunaTecla = 2;
+                }else if (ch == 'k' || ch == 'K'){
+                    colunaTecla = 3;
+                }
+                
+                if(colunaTecla != -1){
+                    ResultadoAcerto resultado = notasVerificarAcerto(&lista, colunaTecla, LINHA_ACERTO);
+
+                    if(resultado == ACERTO_PERFEITO){
+                        screenSetColor(LIGHTGREEN, BLACK);
+                        screenGotoxy(10, 5);
+                        printf("PERFEITO!");
+                    }else if(resultado == ACERTO_BOM){
+                        screenSetColor(YELLOW, BLACK);
+                        screenGotoxy(10, 5);
+                        printf("BOM!");
+                    }else{
+                        screenSetColor(LIGHTRED, BLACK);
+                        screenGotoxy(10, 5);
+                        printf("ERRO!");
+                    }
+                }
+            }
+
+            // Update game state (move elements, verify collision, etc)
+            if (timerTimeOver() == 1) {
+                
+                Nota *atual = lista;
+
+                while (atual != NULL) {
+                    apagarNota(atual->coluna, atual->y);
+                    atual = atual->prox;
+                }
+
+                notasMover(&lista);
+                contador++;
+
+                if (contador >= 10){
+                    int colunaAleatoria = rand() % NUM_COLUNAS;
+                    notaCriar(&lista, colunaAleatoria, 3);
+                    contador = 0;
+                }
+
+                notasRemoverPerdidas(&lista, LINHA_ACERTO +1);
+                atual = lista;
+                while(atual != NULL) {
+                    desenharNota(atual->coluna, atual->y);
+                    atual = atual->prox;
+                }
+
+                screenSetColor(WHITE, BLACK);
+                screenUpdate();
+            }
         }
-
-        // Update game state (move elements, verify collision, etc)
-        if (timerTimeOver() == 1) {
-            screenSetColor(BLACK, BLACK);
-            screenGotoxy(PISTA_X + 2, notaY);
-            printf("     ");
-
-            notaY++;
-            if (notaY >= LINHA_ACERTO) notaY = 3;
-
-            screenSetColor(BLACK, cores[0]);
-            screenGotoxy(PISTA_X + 2, notaY);
-            printf("     ");
-
-            screenSetColor(WHITE, BLACK);
-            screenUpdate();
-        }
+                
     }
+
+    notasLiberar(&lista);
 
     keyboardDestroy();
     screenShowCursor();
