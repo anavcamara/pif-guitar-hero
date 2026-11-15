@@ -2,6 +2,7 @@
 #include "keyboard.h"
 #include "tela.h"
 #include "menu.h"
+#include "ranking.h"
 
 void mostrarComoJogar() {
     int ch = 0;
@@ -44,9 +45,14 @@ int telaInicial() {
             if (selecionada > 3) selecionada = 0;
 
             if (ch == 10) {
-                if (selecionada != 2) return selecionada;
+                if (selecionada == 1) {
+                    mostrarRanking();
+                } else if (selecionada == 2) {
+                    mostrarComoJogar();
+                } else {
+                    return selecionada;
+                }
 
-                mostrarComoJogar();
                 desenharMenu(selecionada);
             } else {
                 desenharOpcoes(selecionada);

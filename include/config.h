@@ -1,0 +1,19 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define MAPA_COLUNAS 4
+
+#define PONTUACAO_PERFEITO 100
+#define PONTUACAO_BOM 50
+
+#define PONTUACAO_COMBO_NIVEL 10
+#define PONTUACAO_MULTIPLICADOR_MAXIMO 4
+
+#define PONTUACAO_VIDAS_INICIAIS 5
+#define RANKING_QUANTIDADE 5
+#define RANKING_TAMANHO_NOME 30
+
+#define DADOS_PASTA "dados/"
+#define RANKING_ARQUIVO "dados/ranking.txt"
+
+#endif

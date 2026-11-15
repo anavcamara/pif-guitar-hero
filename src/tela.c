@@ -1,5 +1,6 @@
 #include "screen.h"
 #include "tela.h"
+#include "config.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -26,7 +27,7 @@ static void resetCor() {
     setBg(COR_PRETO);
 }
 
-void desenharPainel() {
+void desenharPainel(const Placar *placar) {
 
     resetCor();
 
@@ -36,7 +37,7 @@ void desenharPainel() {
 
     setFg(COR_PONTOS);
     screenGotoxy(3, 4);
-    printf("012450"); //valor ficticio
+    printf("%06d", placar->pontos);
 
     setFg(COR_TEXTO);
     screenGotoxy(3, 7);
@@ -44,7 +45,7 @@ void desenharPainel() {
 
     setFg(COR_COMBO);
     screenGotoxy(3, 8);
-    printf("x12"); //valor ficticio
+    printf("%d (x%d)  ", placar->combo, calcular_multiplicador(placar->combo)); // espacos apagam o que sobrou do valor anterior
 
     setFg(COR_TEXTO);
     screenGotoxy(3, 11);
@@ -52,7 +53,7 @@ void desenharPainel() {
 
     setFg(COR_VIDAS);
     screenGotoxy(3, 12);
-    printf("3 / 5"); //valor ficticio
+    printf("%d / %d", placar->vidas, PONTUACAO_VIDAS_INICIAIS);
 
     resetCor();
 }
@@ -162,8 +163,6 @@ void desenharCenario() {
     screenGotoxy(PISTA_X + 2 * LARGURA_PISTA - (int)strlen(legenda) / 2, 23);
     printf("%s", legenda);
     resetCor();
-
-    desenharPainel();
 }
 
 void desenharNota(int pista, int y) {
@@ -337,6 +336,107 @@ void desenharComoJogar() {
     desenharPasso(13, 3, "Cada acerto soma pontos e aumenta o seu combo.");
     desenharPasso(15, 4, "Se deixar uma nota passar ou errar a tecla, você perde uma vida.");
     desenharPasso(17, 5, "Quando as vidas acabam, o jogo termina.");
+
+    setFg(COR_CINZA);
+    screenGotoxy(28, 22);
+    printf("aperte ENTER para voltar");
+    resetCor();
+}
+
+// --- Fim de jogo e ranking ---
+
+void desenharTituloTela(char titulo[]) {
+    int tam = strlen(titulo);
+
+    resetCor();
+    for (int i = 0; i < tam; i++) {
+        setFg(COR_NOTA[i % 4]);
+        screenGotoxy(40 - tam + i * 2, 3);
+        printf("%c", titulo[i]);
+    }
+    resetCor();
+}
+
+void desenharResultado(int linha, int cor, char texto[], int valor) {
+    resetCor();
+    setFg(COR_TEXTO);
+    screenGotoxy(28, linha);
+    printf("%s", texto);
+
+    setFg(COR_NOTA[cor]);
+    screenGotoxy(46, linha);
+    printf("%d", valor);
+    resetCor();
+}
+
+void desenharFimDeJogo(const Placar *placar) {
+    desenharFundo();
+
+    if (jogo_acabou(placar)) {
+        desenharTituloTela("FIM DE JOGO");
+    } else {
+        desenharTituloTela("MUSICA COMPLETA");
+    }
+
+    desenharResultado(6, 3, "PONTOS", placar->pontos);
+    desenharResultado(8, 3, "MAIOR COMBO", placar->maior_combo);
+    desenharResultado(11, 0, "PERFEITOS", placar->perfeitos);
+    desenharResultado(13, 2, "BONS", placar->bons);
+    desenharResultado(15, 1, "ERROS", placar->erros);
+}
+
+void desenharPedirNome(char nome[]) {
+    // apaga a linha antes de escrever
+    resetCor();
+    screenGotoxy(28, 18);
+    printf("                                    ");
+
+    setFg(COR_TEXTO);
+    screenGotoxy(28, 18);
+    printf("NOME: ");
+    setFg(COR_BRANCO);
+    printf("%s", nome);
+
+    setFg(COR_CINZA);
+    screenGotoxy(25, 22);
+    printf("digite seu nome e aperte ENTER");
+    resetCor();
+}
+
+void desenharPosicao(int linha, int numero, char nome[], int pontos, int destaque) {
+    resetCor();
+    setFg(COR_NOTA[(numero - 1) % 4]);
+    screenGotoxy(22, linha);
+    printf("%d. ", numero);
+
+    if (destaque) {
+        setBg(COR_TEXTO);
+        setFg(COR_PRETO);
+    } else {
+        setFg(COR_TEXTO);
+    }
+    printf("%s", nome);
+
+    resetCor();
+    setFg(COR_PONTOS);
+    screenGotoxy(56, linha);
+    printf("%06d", pontos);
+    resetCor();
+}
+
+void desenharRanking(RegistroRanking ranking[], int quantidade, int destaque) {
+    desenharFundo();
+    desenharTituloTela("RANKING");
+
+    if (quantidade == 0) {
+        setFg(COR_CINZA);
+        screenGotoxy(26, 10);
+        printf("nenhuma pontuação salva ainda");
+    }
+
+    for (int i = 0; i < quantidade; i++) {
+        desenharPosicao(6 + i * 2, i + 1, ranking[i].nome, ranking[i].pontos, i == destaque);
+    }
 
     setFg(COR_CINZA);
     screenGotoxy(28, 22);
