@@ -5,9 +5,11 @@
 #include "tela.h"
 #include "menu.h"
 #include "notas.h"
+#include "pontuacao.h"
+#include "mapa.h"
+#include "ranking.h"
 
 int main() {
-    srand(time(NULL));
     static int ch = 0;
 
     screenInit(1);
@@ -19,8 +21,15 @@ int main() {
 
     Nota *lista = NULL;
 
-    if (opcao == 0) // JOGAR
+    while (opcao == 0) // JOGAR
     {
+        Mapa *mapa = carregar_mapa(DADOS_PASTA "musicas/exemplo.map");
+        if (mapa == NULL) break;
+
+        Placar placar;
+        iniciar_placar(&placar);
+        ch = 0;
+
         desenharCenario();
         screenSetColor(WHITE, BLACK);
         screenUpdate();
@@ -28,7 +37,8 @@ int main() {
         int contador = 0;
         int proximaColuna = 0;
 
-        while (ch != 10) // sai com enter
+        // sai com enter, sem vidas ou quando a musica acaba
+        while (ch != 10 && !jogo_acabou(&placar) && !(mapa_acabou(mapa) && lista == NULL))
         {
             // Handle user input
             if (keyhit())
@@ -48,6 +58,7 @@ int main() {
                 
                 if(colunaTecla != -1){
                     ResultadoAcerto resultado = notasVerificarAcerto(&lista, colunaTecla, LINHA_ACERTO);
+                    registrar_acerto(&placar, resultado);
 
                     if(resultado == ACERTO_PERFEITO){
                         screenSetColor(LIGHTGREEN, BLACK);
@@ -78,13 +89,13 @@ int main() {
                 notasMover(&lista);
                 contador++;
 
-                if (contador >= 10){
-                    int colunaAleatoria = rand() % NUM_COLUNAS;
-                    notaCriar(&lista, colunaAleatoria, 3);
+                if (contador >= ms_por_linha(mapa) / 50){
+                    criar_notas_da_linha(mapa, &lista, 3);
                     contador = 0;
                 }
 
-                notasRemoverPerdidas(&lista, LINHA_ACERTO +1);
+                registrar_perdidas(&placar, notasRemoverPerdidas(&lista, LINHA_ACERTO +1));
+                desenharPainel(&placar);
                 atual = lista;
                 while(atual != NULL) {
                     desenharNota(atual->coluna, atual->y);
@@ -95,10 +106,14 @@ int main() {
                 screenUpdate();
             }
         }
-                
-    }
 
-    notasLiberar(&lista);
+        if (ch != 10) mostrarResultado(&placar);
+
+        notasLiberar(&lista);
+        liberar_mapa(mapa);
+
+        opcao = telaInicial();
+    }
 
     keyboardDestroy();
     screenShowCursor();

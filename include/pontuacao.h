@@ -1,4 +1,8 @@
+#ifndef PONTUACAO_H
+#define PONTUACAO_H
+
 #include "config.h"
+#include "notas.h"
 
 typedef struct {
     int pontos;
@@ -16,7 +20,8 @@ typedef struct {
 } RegistroRanking;
 
 void iniciar_placar(Placar *placar);
-void registrar_acerto(Placar *placar, TipoAcerto resultado);
+void registrar_acerto(Placar *placar, ResultadoAcerto resultado);
+void registrar_perdidas(Placar *placar, int quantidade);
 int calcular_multiplicador(int combo);
 int jogo_acabou(const Placar *placar);
 
@@ -27,3 +32,5 @@ int inserir_ranking(RegistroRanking ranking[RANKING_QUANTIDADE],
 int salvar_ranking(const char *nome_arquivo,
                    const RegistroRanking ranking[RANKING_QUANTIDADE],
                    int quantidade);
+
+#endif

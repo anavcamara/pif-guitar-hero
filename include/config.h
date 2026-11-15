@@ -1,3 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #define MAPA_COLUNAS 4
 
 #define PONTUACAO_PERFEITO 100
@@ -13,8 +16,4 @@
 #define DADOS_PASTA "dados/"
 #define RANKING_ARQUIVO "dados/ranking.txt"
 
-typedef enum {
-    PERFEITO,
-    BOM,
-    ERRO
-} TipoAcerto;
+#endif

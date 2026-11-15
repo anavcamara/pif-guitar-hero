@@ -102,6 +102,22 @@ int proxima_linha(Mapa *mapa, int linha[MAPA_COLUNAS])
     return 1;
 }
 
+void criar_notas_da_linha(Mapa *mapa, Nota **lista, int y)
+{
+    int linha[MAPA_COLUNAS];
+    int coluna;
+
+    if (!proxima_linha(mapa, linha)) {
+        return;
+    }
+
+    for (coluna = 0; coluna < MAPA_COLUNAS; coluna++) {
+        if (linha[coluna] == 1) {
+            notaCriar(lista, coluna, y);
+        }
+    }
+}
+
 int mapa_acabou(const Mapa *mapa)
 {
     return mapa->cursor >= mapa->total_linhas;

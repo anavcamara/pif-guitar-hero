@@ -14,11 +14,11 @@ void iniciar_placar(Placar *placar)
     placar->erros = 0;
 }
 
-void registrar_acerto(Placar *placar, TipoAcerto resultado)
+void registrar_acerto(Placar *placar, ResultadoAcerto resultado)
 {
     int pontos_base;
 
-    if (resultado == ERRO) {
+    if (resultado == ACERTO_ERRO) {
         placar->erros++;
         placar->combo = 0;
         if (placar->vidas > 0) {
@@ -27,10 +27,10 @@ void registrar_acerto(Placar *placar, TipoAcerto resultado)
         return;
     }
 
-    if (resultado == PERFEITO) {
+    if (resultado == ACERTO_PERFEITO) {
         placar->perfeitos++;
         pontos_base = PONTUACAO_PERFEITO;
-    } else if (resultado == BOM) {
+    } else if (resultado == ACERTO_BOM) {
         placar->bons++;
         pontos_base = PONTUACAO_BOM;
     } else {
@@ -43,6 +43,15 @@ void registrar_acerto(Placar *placar, TipoAcerto resultado)
     }
 
     placar->pontos += pontos_base * calcular_multiplicador(placar->combo);
+}
+
+void registrar_perdidas(Placar *placar, int quantidade)
+{
+    int i;
+
+    for (i = 0; i < quantidade; i++) {
+        registrar_acerto(placar, ACERTO_ERRO);
+    }
 }
 
 int calcular_multiplicador(int combo)

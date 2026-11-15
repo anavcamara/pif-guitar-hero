@@ -55,3 +55,6 @@ dkms.conf
 # debug information files
 *.dwo
 guitar-hero
+
+# Arquivos gerados pelo jogo
+dados/ranking.txt
