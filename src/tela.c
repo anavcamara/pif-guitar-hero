@@ -80,6 +80,23 @@ static void desenharTrechoAcerto(int x, int largura, int pista) {
     resetCor();
 }
 
+void desenharPads() {
+    char teclas[4] = {'D', 'F', 'J', 'K'};
+
+    for (int i = 0; i < 4; i++) {
+        resetCor();
+        setBg(COR_NOTA[i]);
+        setFg(COR_PRETO);
+
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 4, 20);
+        printf("  %c  ", teclas[i]);
+
+        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 4, 21);
+        printf("     ");
+    }
+    resetCor();
+}
+
 void desenharCenario() {
 
     desenharFundo();
@@ -93,8 +110,6 @@ void desenharCenario() {
             for (int j = 0; j < LARGURA_PISTA - 1; j++) printf(" ");
         }
     }
-
-    char teclas[4] = {'D', 'F', 'J', 'K'};
 
     //divisorias
     resetCor();
@@ -144,17 +159,8 @@ void desenharCenario() {
     resetCor();
 
     //pads
-    for (int i = 0; i < 4; i++) {
-        resetCor();
-        setBg(COR_NOTA[i]);
-        setFg(COR_PRETO);
+    desenharPads();
 
-        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 4, 20);
-        printf("  %c  ", teclas[i]);
-
-        screenGotoxy(PISTA_X + i * LARGURA_PISTA + 4, 21);
-        printf("     ");
-    }
     resetCor();
 
     //legenda

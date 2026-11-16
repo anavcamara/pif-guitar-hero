@@ -11,6 +11,7 @@ void desenharMenu(int selecionada);
 void desenharOpcoes(int selecionada);
 void desenharComoJogar();
 
+void desenharPads();
 void desenharCenario();
 
 void desenharNota(int pista, int y);

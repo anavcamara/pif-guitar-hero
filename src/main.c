@@ -101,6 +101,8 @@ int main() {
                     desenharNota(atual->coluna, atual->y);
                     atual = atual->prox;
                 }
+                
+                desenharPads();
 
                 screenSetColor(WHITE, BLACK);
                 screenUpdate();
