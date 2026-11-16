@@ -478,3 +478,13 @@ void desenharFeedback(ResultadoAcerto resultado) {
 
     resetCor();
 }
+
+void desenharSemPontos() {
+    resetCor();
+    setFg(COR_CINZA);
+    screenGotoxy(22, 18);
+    printf("sem pontos: sua pontuação não entra no ranking");
+    screenGotoxy(28, 22);
+    printf("aperte ENTER para voltar");
+    resetCor();
+}

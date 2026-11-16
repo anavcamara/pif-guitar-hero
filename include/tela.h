@@ -26,4 +26,6 @@ void desenharRanking(RegistroRanking ranking[], int quantidade, int destaque);
 void limparPista(int pista);
 void desenharFeedback(ResultadoAcerto resultado);
 
+void desenharSemPontos();
+
 #endif

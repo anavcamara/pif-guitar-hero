@@ -55,6 +55,15 @@ void mostrarResultado(const Placar *placar) {
     int quantidade;
     int posicao;
 
+    // sem pontos nao entra no ranking
+    if (placar->pontos == 0) {
+        desenharFimDeJogo(placar);
+        desenharSemPontos();
+        screenUpdate();
+        esperarEnter();
+        return;
+    }
+
     quantidade = carregar_ranking(RANKING_ARQUIVO, ranking);
 
     desenharFimDeJogo(placar);
