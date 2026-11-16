@@ -23,4 +23,6 @@ void desenharFimDeJogo(const Placar *placar);
 void desenharPedirNome(char nome[]);
 void desenharRanking(RegistroRanking ranking[], int quantidade, int destaque);
 
+void limparPista(int pista);
+
 #endif

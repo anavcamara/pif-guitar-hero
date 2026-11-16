@@ -449,3 +449,14 @@ void desenharRanking(RegistroRanking ranking[], int quantidade, int destaque) {
     printf("aperte ENTER para voltar");
     resetCor();
 }
+
+void limparPista(int pista) {
+    resetCor();
+    setBg(COR_FUNDO[pista]);
+    for (int linha = 3; linha <= 21; linha++) {
+        screenGotoxy(PISTA_X + pista * LARGURA_PISTA + 1, linha);
+        for (int j = 0; j < LARGURA_PISTA - 1; j++) printf(" ");
+    }
+    desenharTrechoAcerto(PISTA_X + pista * LARGURA_PISTA + 1, LARGURA_PISTA - 1, pista);
+    resetCor();
+}

@@ -60,6 +60,19 @@ int main() {
                     ResultadoAcerto resultado = notasVerificarAcerto(&lista, colunaTecla, LINHA_ACERTO);
                     registrar_acerto(&placar, resultado);
 
+                    if (resultado == ACERTO_PERFEITO || resultado == ACERTO_BOM) {
+                        limparPista(colunaTecla);
+
+                        // redesenha as outras notas que estavam nessa pista
+                        Nota *n = lista;
+                        while (n != NULL) {
+                            if (n->coluna == colunaTecla) desenharNota(n->coluna, n->y);
+                            n = n->prox;
+                        }
+
+                        desenharPads();
+                    }
+
                     if(resultado == ACERTO_PERFEITO){
                         screenSetColor(LIGHTGREEN, BLACK);
                         screenGotoxy(10, 5);
@@ -101,7 +114,7 @@ int main() {
                     desenharNota(atual->coluna, atual->y);
                     atual = atual->prox;
                 }
-                
+
                 desenharPads();
 
                 screenSetColor(WHITE, BLACK);
