@@ -73,19 +73,7 @@ int main() {
                         desenharPads();
                     }
 
-                    if(resultado == ACERTO_PERFEITO){
-                        screenSetColor(LIGHTGREEN, BLACK);
-                        screenGotoxy(10, 5);
-                        printf("PERFEITO!");
-                    }else if(resultado == ACERTO_BOM){
-                        screenSetColor(YELLOW, BLACK);
-                        screenGotoxy(10, 5);
-                        printf("BOM!");
-                    }else{
-                        screenSetColor(LIGHTRED, BLACK);
-                        screenGotoxy(10, 5);
-                        printf("ERRO!");
-                    }
+                    desenharFeedback(resultado);
                 }
             }
 

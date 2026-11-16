@@ -460,3 +460,21 @@ void limparPista(int pista) {
     desenharTrechoAcerto(PISTA_X + pista * LARGURA_PISTA + 1, LARGURA_PISTA - 1, pista);
     resetCor();
 }
+
+void desenharFeedback(ResultadoAcerto resultado) {
+    resetCor();
+    screenGotoxy(3, 15);
+
+    if (resultado == ACERTO_PERFEITO) {
+        setFg(COR_COMBO);
+        printf("PERFEITO!");
+    } else if (resultado == ACERTO_BOM) {
+        setFg(COR_PONTOS);
+        printf("BOM!     ");
+    } else {
+        setFg(COR_VIDAS);
+        printf("ERRO!    ");
+    }
+
+    resetCor();
+}
