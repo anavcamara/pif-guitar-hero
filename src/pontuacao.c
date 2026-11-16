@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
 
 void iniciar_placar(Placar *placar)
 {
@@ -96,7 +97,29 @@ int inserir_ranking(RegistroRanking ranking[RANKING_QUANTIDADE],
                     int *quantidade, const char *nome, int pontos)
 {
     int posicao;
+    int existente;
     int i;
+
+    // se o nome ja esta no ranking (ignorando maiusculas), fica so a melhor pontuacao
+    existente = -1;
+    for (i = 0; i < *quantidade; i++) {
+        if (strncasecmp(ranking[i].nome, nome, RANKING_TAMANHO_NOME) == 0) {
+            existente = i;
+            break;
+        }
+    }
+
+    if (existente != -1) {
+        if (pontos <= ranking[existente].pontos) {
+            return -1;
+        }
+
+        // remove o registro antigo para inserir o novo
+        for (i = existente; i < *quantidade - 1; i++) {
+            ranking[i] = ranking[i + 1];
+        }
+        (*quantidade)--;
+    }
 
     posicao = 0;
     while (posicao < *quantidade && ranking[posicao].pontos >= pontos) {
