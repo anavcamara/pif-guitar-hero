@@ -35,7 +35,6 @@ int main() {
         screenUpdate();
 
         int contador = 0;
-        int proximaColuna = 0;
 
         // sai com enter, sem vidas ou quando a musica acaba
         while (ch != 10 && !jogo_acabou(&placar) && !(mapa_acabou(mapa) && lista == NULL))
