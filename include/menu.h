@@ -2,5 +2,6 @@
 #define MENU_H
 
 int telaInicial();
+int telaDificuldade();
 
 #endif

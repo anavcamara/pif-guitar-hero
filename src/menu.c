@@ -62,3 +62,37 @@ int telaInicial() {
         }
     }
 }
+
+int telaDificuldade() {
+    int selecionada = 0;
+    int ch = 0;
+
+    desenharDificuldade(selecionada);
+    screenUpdate();
+
+    while (ch != 10)
+    {
+        if (keyhit())
+        {
+            ch = readch();
+
+            if (ch == 27) {
+                readch();
+                ch = readch();
+                if (ch == 65) selecionada--;
+                if (ch == 66) selecionada++;
+            }
+
+            if (ch == 'w' || ch == 'W') selecionada--;
+            if (ch == 's' || ch == 'S') selecionada++;
+
+            if (selecionada < 0) selecionada = 3;
+            if (selecionada > 3) selecionada = 0;
+
+            desenharOpcoesDificuldade(selecionada);
+            screenUpdate();
+        }
+    }
+
+    return selecionada; // 3 = voltar
+}
