@@ -58,7 +58,7 @@ void desenharPainel(const Placar *placar) {
     resetCor();
 }
 
-void desenharFundo() {
+static void desenharFundo() {
 
         resetCor();
 
@@ -193,7 +193,7 @@ void apagarNota(int pista, int y) {
 
 // --- Menu inicial ---
 
-void desenharTitulo() {
+static void desenharTitulo() {
     char linha1[] = "GUITAR";
     char linha2[] = "HERO";
 
@@ -220,14 +220,14 @@ void desenharBloco(int x, int y, int cor) {
     resetCor();
 }
 
-void desenharNotasMenu() {
+static void desenharNotasMenu() {
     desenharBloco(5, 5, 0);
     desenharBloco(5, 15, 1);
     desenharBloco(70, 8, 3);
     desenharBloco(70, 18, 2);
 }
 
-void desenharOpcao(int linha, char texto[], int selecionada) {
+static void desenharOpcao(int linha, char texto[], int selecionada) {
     int tam = strlen(texto);
 
     // apaga a linha antes de escrever
@@ -256,7 +256,7 @@ void desenharOpcoes(int selecionada) {
     desenharOpcao(17, "SAIR", selecionada == 3);
 }
 
-void desenharPadsMenu() {
+static void desenharPadsMenu() {
     char teclas[4] = {'D', 'F', 'J', 'K'};
 
     // linha de acerto
@@ -278,7 +278,7 @@ void desenharPadsMenu() {
     resetCor();
 }
 
-void desenharDica() {
+static void desenharDica() {
     resetCor();
     setFg(COR_CINZA);
     screenGotoxy(18, 23);
@@ -295,7 +295,7 @@ void desenharMenu(int selecionada) {
     desenharDica();
 }
 
-void desenharTituloAjuda() {
+static void desenharTituloAjuda() {
     char titulo[] = "COMO JOGAR";
 
     resetCor();
@@ -307,7 +307,7 @@ void desenharTituloAjuda() {
     resetCor();
 }
 
-void desenharPasso(int linha, int numero, char texto[]) {
+static void desenharPasso(int linha, int numero, char texto[]) {
     resetCor();
     setFg(COR_NOTA[(numero - 1) % 4]);
     screenGotoxy(10, linha);
@@ -318,7 +318,7 @@ void desenharPasso(int linha, int numero, char texto[]) {
     resetCor();
 }
 
-void desenharPadsAjuda() {
+static void desenharPadsAjuda() {
     char teclas[4] = {'D', 'F', 'J', 'K'};
 
     for (int i = 0; i < 4; i++) {
@@ -351,7 +351,7 @@ void desenharComoJogar() {
 
 // --- Fim de jogo e ranking ---
 
-void desenharTituloTela(char titulo[]) {
+static void desenharTituloTela(char titulo[]) {
     int tam = strlen(titulo);
 
     resetCor();
@@ -363,7 +363,7 @@ void desenharTituloTela(char titulo[]) {
     resetCor();
 }
 
-void desenharResultado(int linha, int cor, char texto[], int valor) {
+static void desenharResultado(int linha, int cor, char texto[], int valor) {
     resetCor();
     setFg(COR_TEXTO);
     screenGotoxy(28, linha);
@@ -409,7 +409,7 @@ void desenharPedirNome(char nome[]) {
     resetCor();
 }
 
-void desenharPosicao(int linha, int numero, char nome[], int pontos, int destaque) {
+static void desenharPosicao(int linha, int numero, char nome[], int pontos, int destaque) {
     resetCor();
     setFg(COR_NOTA[(numero - 1) % 4]);
     screenGotoxy(22, linha);
