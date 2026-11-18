@@ -1,3 +1,6 @@
+#ifndef MAPA_H
+#define MAPA_H
+
 #include "config.h"
 #include "notas.h"
 
@@ -18,3 +21,5 @@ void criar_notas_da_linha(Mapa *mapa, Nota **lista, int y);
 int mapa_acabou(const Mapa *mapa);
 int ms_por_linha(const Mapa *mapa);
 void liberar_mapa(Mapa *mapa);
+
+#endif
