@@ -21,9 +21,21 @@ int main() {
 
     Nota *lista = NULL;
 
+    char *mapas[NUM_DIFICULDADES] = {
+        DADOS_PASTA "mapas/facil.map",
+        DADOS_PASTA "mapas/medio.map",
+        DADOS_PASTA "mapas/dificil.map"
+    };
+
     while (opcao == 0) // JOGAR
     {
-        Mapa *mapa = carregar_mapa(DADOS_PASTA "musicas/exemplo.map");
+        int dificuldade = telaDificuldade();
+        if (dificuldade == NUM_DIFICULDADES) { // voltar
+            opcao = telaInicial();
+            continue;
+        }
+
+        Mapa *mapa = carregar_mapa(mapas[dificuldade]);
         if (mapa == NULL) break;
 
         Placar placar;
