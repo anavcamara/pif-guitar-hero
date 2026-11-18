@@ -427,10 +427,10 @@ void desenharPedirNome(char nome[]) {
     resetCor();
 }
 
-static void desenharPosicao(int linha, int numero, char nome[], int pontos, int destaque) {
+static void desenharPosicao(int x, int linha, int numero, char nome[], int pontos, int destaque) {
     resetCor();
     setFg(COR_NOTA[(numero - 1) % 4]);
-    screenGotoxy(22, linha);
+    screenGotoxy(x, linha);
     printf("%d. ", numero);
 
     if (destaque) {
@@ -439,27 +439,39 @@ static void desenharPosicao(int linha, int numero, char nome[], int pontos, int 
     } else {
         setFg(COR_TEXTO);
     }
-    printf("%s", nome);
+    printf("%.12s", nome);
 
     resetCor();
     setFg(COR_PONTOS);
-    screenGotoxy(56, linha);
+    screenGotoxy(x + 16, linha);
     printf("%06d", pontos);
     resetCor();
 }
 
-void desenharRanking(RegistroRanking ranking[], int quantidade, int destaque) {
+void desenharRanking(RegistroRanking ranking[][RANKING_QUANTIDADE], int quantidade[], int dificuldade, int destaque) {
+    char *titulos[NUM_DIFICULDADES] = {"FACIL", "MEDIO", "DIFICIL"};
+
     desenharFundo();
     desenharTituloTela("RANKING");
 
-    if (quantidade == 0) {
-        setFg(COR_CINZA);
-        screenGotoxy(26, 10);
-        printf("nenhuma pontuação salva ainda");
-    }
+    // uma coluna para cada dificuldade
+    for (int d = 0; d < NUM_DIFICULDADES; d++) {
+        int x = 4 + d * 26;
 
-    for (int i = 0; i < quantidade; i++) {
-        desenharPosicao(6 + i * 2, i + 1, ranking[i].nome, ranking[i].pontos, i == destaque);
+        setFg(COR_TEXTO);
+        screenGotoxy(x + (22 - strlen(titulos[d])) / 2, 6);
+        printf("%s", titulos[d]);
+
+        if (quantidade[d] == 0) {
+            setFg(COR_CINZA);
+            screenGotoxy(x + 4, 8);
+            printf("sem pontuação");
+        }
+
+        for (int i = 0; i < quantidade[d]; i++) {
+            desenharPosicao(x, 8 + i * 2, i + 1, ranking[d][i].nome, ranking[d][i].pontos,
+                            d == dificuldade && i == destaque);
+        }
     }
 
     setFg(COR_CINZA);

@@ -4,6 +4,6 @@
 #include "pontuacao.h"
 
 void mostrarRanking();
-void mostrarResultado(const Placar *placar);
+void mostrarResultado(const Placar *placar, int dificuldade);
 
 #endif

@@ -3,6 +3,18 @@
 #include "tela.h"
 #include "ranking.h"
 
+static char *arquivos[NUM_DIFICULDADES] = {
+    DADOS_PASTA "ranking_facil.txt",
+    DADOS_PASTA "ranking_medio.txt",
+    DADOS_PASTA "ranking_dificil.txt"
+};
+
+static void carregarRankings(RegistroRanking ranking[][RANKING_QUANTIDADE], int quantidade[]) {
+    for (int i = 0; i < NUM_DIFICULDADES; i++) {
+        quantidade[i] = carregar_ranking(arquivos[i], ranking[i]);
+    }
+}
+
 static void esperarEnter() {
     int ch = 0;
 
@@ -39,20 +51,20 @@ static void lerNome(char nome[]) {
 }
 
 void mostrarRanking() {
-    RegistroRanking ranking[RANKING_QUANTIDADE];
-    int quantidade;
+    RegistroRanking ranking[NUM_DIFICULDADES][RANKING_QUANTIDADE];
+    int quantidade[NUM_DIFICULDADES];
 
-    quantidade = carregar_ranking(RANKING_ARQUIVO, ranking);
+    carregarRankings(ranking, quantidade);
 
-    desenharRanking(ranking, quantidade, -1);
+    desenharRanking(ranking, quantidade, -1, -1);
     screenUpdate();
     esperarEnter();
 }
 
-void mostrarResultado(const Placar *placar) {
-    RegistroRanking ranking[RANKING_QUANTIDADE];
+void mostrarResultado(const Placar *placar, int dificuldade) {
+    RegistroRanking ranking[NUM_DIFICULDADES][RANKING_QUANTIDADE];
     char nome[RANKING_TAMANHO_NOME + 1];
-    int quantidade;
+    int quantidade[NUM_DIFICULDADES];
     int posicao;
 
     // sem pontos nao entra no ranking
@@ -64,17 +76,17 @@ void mostrarResultado(const Placar *placar) {
         return;
     }
 
-    quantidade = carregar_ranking(RANKING_ARQUIVO, ranking);
+    carregarRankings(ranking, quantidade);
 
     desenharFimDeJogo(placar);
     lerNome(nome);
 
-    posicao = inserir_ranking(ranking, &quantidade, nome, placar->pontos);
+    posicao = inserir_ranking(ranking[dificuldade], &quantidade[dificuldade], nome, placar->pontos);
     if (posicao >= 0) {
-        salvar_ranking(RANKING_ARQUIVO, ranking, quantidade);
+        salvar_ranking(arquivos[dificuldade], ranking[dificuldade], quantidade[dificuldade]);
     }
 
-    desenharRanking(ranking, quantidade, posicao);
+    desenharRanking(ranking, quantidade, dificuldade, posicao);
     screenUpdate();
     esperarEnter();
 }

@@ -121,7 +121,7 @@ int main() {
             }
         }
 
-        if (ch != 10) mostrarResultado(&placar);
+        if (ch != 10) mostrarResultado(&placar, dificuldade);
 
         notasLiberar(&lista);
         liberar_mapa(mapa);

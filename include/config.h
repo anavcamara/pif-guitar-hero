@@ -14,7 +14,6 @@
 #define RANKING_TAMANHO_NOME 30
 
 #define DADOS_PASTA "dados/"
-#define RANKING_ARQUIVO "dados/ranking.txt"
 #define NUM_DIFICULDADES 3
 
 #endif

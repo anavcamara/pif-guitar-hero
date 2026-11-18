@@ -57,4 +57,4 @@ dkms.conf
 guitar-hero
 
 # Arquivos gerados pelo jogo
-dados/ranking.txt
+dados/ranking*.txt

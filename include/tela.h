@@ -23,7 +23,7 @@ void desenharPainel(const Placar *placar);
 
 void desenharFimDeJogo(const Placar *placar);
 void desenharPedirNome(char nome[]);
-void desenharRanking(RegistroRanking ranking[], int quantidade, int destaque);
+void desenharRanking(RegistroRanking ranking[][RANKING_QUANTIDADE], int quantidade[], int dificuldade, int destaque);
 
 void limparPista(int pista);
 void desenharFeedback(ResultadoAcerto resultado);
