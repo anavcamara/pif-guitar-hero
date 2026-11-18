@@ -9,7 +9,7 @@ TARGET = guitar-hero
 
 all: $(TARGET)
 
-$(TARGET): $(SRC) include/config.h
+$(TARGET): $(SRC) $(wildcard include/*.h)
 	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
 
 run: all
