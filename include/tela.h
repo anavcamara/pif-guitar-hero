@@ -10,6 +10,8 @@
 void desenharMenu(int selecionada);
 void desenharOpcoes(int selecionada);
 void desenharComoJogar();
+void desenharDificuldade(int selecionada);
+void desenharOpcoesDificuldade(int selecionada);
 
 void desenharPads();
 void desenharCenario();

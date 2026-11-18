@@ -295,6 +295,24 @@ void desenharMenu(int selecionada) {
     desenharDica();
 }
 
+static void desenharTituloTela(char titulo[]); // definida na parte de fim de jogo
+
+void desenharOpcoesDificuldade(int selecionada) {
+    desenharOpcao(9, "FACIL", selecionada == 0);
+    desenharOpcao(11, "MEDIO", selecionada == 1);
+    desenharOpcao(13, "DIFICIL", selecionada == 2);
+    desenharOpcao(17, "VOLTAR", selecionada == 3);
+}
+
+void desenharDificuldade(int selecionada) {
+    desenharFundo();
+    desenharTituloTela("DIFICULDADE");
+    desenharNotasMenu();
+    desenharOpcoesDificuldade(selecionada);
+    desenharPadsMenu();
+    desenharDica();
+}
+
 static void desenharTituloAjuda() {
     char titulo[] = "COMO JOGAR";
 
